@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battle! — Pokemon Battle Simulator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/battle.css" />
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">POKEBATTLE</a>
+    <ul>
+      <li><a href="index.html">My Team</a></li>
+      <li><a href="pokedex.html">Pokedex</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       BATTLE ARENA
+       Layout:  opponent (top-right) | player (bottom-left)
+                sprites in the middle row
+                battle log + controls below
+  ============================================================ -->
+  <div class="battle-arena">
+
+    <!-- Opponent info panel (top right) -->
+    <div class="card opponent-panel" id="opponent-panel">
+      <div class="flex" style="justify-content:space-between; align-items:center;">
+        <span id="opponent-name" class="pokemon-name">???</span>
+        <span id="opponent-level" class="pokemon-level">Lv. ?</span>
+      </div>
+      <!--
+        TODO: add type badges here via JS:
+        <div id="opponent-types"></div>
+      -->
+      <div class="hp-bar-container mt-1">
+        <div class="hp-bar hp-high" id="opponent-hp-bar" style="width:100%;"></div>
+      </div>
+      <div class="hp-label">
+        <span id="opponent-hp-label">— / —</span>
+      </div>
+    </div>
+
+    <!-- Player info panel (bottom left) -->
+    <div class="card player-panel" id="player-panel">
+      <div class="flex" style="justify-content:space-between; align-items:center;">
+        <span id="player-name" class="pokemon-name">???</span>
+        <span id="player-level" class="pokemon-level">Lv. ?</span>
+      </div>
+      <!--
+        TODO: add type badges here via JS:
+        <div id="player-types"></div>
+      -->
+      <div class="hp-bar-container mt-1">
+        <div class="hp-bar hp-high" id="player-hp-bar" style="width:100%;"></div>
+      </div>
+      <div class="hp-label">
+        <span id="player-hp-label">— / —</span>
+      </div>
+      <!-- XP bar (optional stretch goal) -->
+      <!--
+        TODO: add XP bar below HP bar
+        <div class="hp-bar-container"><div class="hp-bar" id="xp-bar" style="background:var(--blue);width:0%;"></div></div>
+      -->
+    </div>
+
+    <!-- Sprite area -->
+    <div class="sprites-area">
+      <!-- Opponent sprite (smaller, at the back) -->
+      <div class="sprite-wrapper">
+        <!--
+          TODO: in JS set src to opponent's sprite_url:
+          document.getElementById("opponent-sprite").src = data.sprite_url;
+        -->
+        <img id="opponent-sprite" class="sprite opponent-sprite"
+             src="" alt="opponent" style="width:96px; height:96px;" />
+        <span id="opponent-sprite-name" class="text-muted" style="font-size:0.75rem;"></span>
+      </div>
+
+      <!-- Player sprite (larger, at the front — use back sprite if available) -->
+      <div class="sprite-wrapper" style="order:1;">
+        <!--
+          TODO: PokeAPI also has back sprites:
+          data["sprites"]["back_default"]  — use this for the player's sprite
+        -->
+        <img id="player-sprite" class="sprite player-sprite"
+             src="" alt="your pokemon" style="width:120px; height:120px;" />
+        <span id="player-sprite-name" class="text-muted" style="font-size:0.75rem;"></span>
+      </div>
+    </div>
+
+    <!-- Battle log -->
+    <div class="battle-log" id="battle-log">
+      <span class="log-entry system-message">Waiting for battle to start…</span>
+    </div>
+
+    <!-- Controls -->
+    <div class="battle-controls">
+      <!--
+        TODO: move selection buttons here (stretch goal):
+        Show the player's pokemon's 4 moves as buttons.
+        For now a single "Fight!" button runs an auto-battle.
+      -->
+      <button id="fight-btn" class="btn btn-primary" style="font-size:1.1rem; padding: 0.8rem 2.5rem;" disabled>
+        Fight!
+      </button>
+      <a href="index.html" class="btn btn-secondary">Flee</a>
+    </div>
+
+  </div><!-- /.battle-arena -->
+
+  <!-- ============================================================
+       RESULT OVERLAY
+       Hidden until the battle finishes (battle.js removes .hidden)
+  ============================================================ -->
+  <div id="result-overlay" class="result-overlay hidden">
+    <div id="result-card" class="result-card">
+
+      <div id="result-title" class="result-title">—</div>
+
+      <!-- Pokemon status after battle -->
+      <div style="margin: 1rem 0;">
+        <img id="result-sprite" class="sprite" src="" alt="" style="width:80px; height:80px;" />
+        <p id="result-pokemon-name" style="font-weight:bold; margin-top:0.5rem;"></p>
+      </div>
+
+      <!-- XP / level info -->
+      <p id="result-xp" class="text-muted"></p>
+      <p id="result-level" class="text-muted"></p>
+      <p id="result-evolved" class="text-yellow" style="font-weight:bold; margin-top:0.5rem;"></p>
+
+      <!-- Egg reward -->
+      <div id="egg-reward-section" class="egg-reward hidden">
+        <img id="egg-sprite" class="sprite" src="" alt="egg" style="width:56px; height:56px;" />
+        <p style="font-weight:bold;">You received a mystery egg!</p>
+        <p id="egg-hint" class="text-muted" style="font-size:0.8rem;">Hatch it from your team page.</p>
+      </div>
+
+      <div class="flex gap-1 flex-center mt-2">
+        <a href="index.html" class="btn btn-primary">Back to Team</a>
+        <!--
+          TODO: add a "Battle Again" button that reloads with a new random opponent:
+          location.href = `battle.html?trainer=...&pokemon=...&opponent=${randomId}`
+        -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <script type="module" src="js/battle.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon Battle Simulator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       TODO: add active class to the current page link via JS
+  ============================================================ -->
+  <nav>
+    <a class="logo" href="index.html">POKEBATTLE</a>
+    <ul>
+      <li><a href="index.html">My Team</a></li>
+      <li><a href="pokedex.html">Pokedex</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       LOGIN / TRAINER SELECT
+       Shown first time; hidden after a trainer is chosen.
+  ============================================================ -->
+  <section id="login-section" class="flex-center" style="min-height: 80vh;">
+    <div class="card text-center" style="max-width:400px; width:90%; padding:2.5rem;">
+      <!-- TODO: replace with a pixel-art Pokeball image -->
+      <div style="font-size:4rem; margin-bottom:1rem;">⚡</div>
+      <h1 style="color:var(--yellow); margin-bottom:0.5rem;">Pokemon Battle Simulator</h1>
+      <p class="text-muted mt-1" style="margin-bottom:2rem;">
+        Enter your trainer name to start.  New names create a new account.
+      </p>
+
+      <div class="flex gap-1" style="flex-direction:column;">
+        <input
+          id="login-input"
+          type="text"
+          placeholder="Trainer name…"
+          style="
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.15);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+          "
+        />
+        <button id="login-btn" class="btn btn-primary" style="width:100%;">
+          Start Adventure
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MAIN CONTENT — hidden until logged in
+  ============================================================ -->
+  <main id="main-section" class="hidden" style="max-width:1100px; margin:2rem auto; padding:0 1rem;">
+
+    <!-- Trainer header -->
+    <div class="flex" style="justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+      <div>
+        <h2 id="trainer-name-display" style="color:var(--yellow);">Trainer: —</h2>
+        <p id="trainer-record" class="text-muted">Wins: 0 | Losses: 0</p>
+      </div>
+      <button id="logout-btn" class="btn btn-secondary">Log out</button>
+    </div>
+
+    <!-- Party -->
+    <section>
+      <h3 style="margin-bottom:1rem;">Active Party
+        <span class="text-muted" style="font-size:0.8rem;">(max 6)</span>
+      </h3>
+
+      <!--
+        TODO: render one card per party pokemon here via JS (pokemon.js → loadParty).
+        Each card should show:
+          - Sprite image
+          - Name + Level
+          - Type badges
+          - HP bar
+          - "Battle!" button
+          - "Send to Box" button
+      -->
+      <div id="party-grid" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+      ">
+        <!-- JS will populate this -->
+      </div>
+    </section>
+
+    <!-- Eggs -->
+    <section class="mt-2">
+      <h3 style="margin-bottom:1rem;">Egg Bag</h3>
+      <!--
+        TODO: render one card per egg here via JS (pokemon.js → loadEggs).
+        Each card should show:
+          - Egg sprite (or placeholder)
+          - "Hatch" button
+      -->
+      <div id="egg-grid" style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+      ">
+        <!-- JS will populate this -->
+      </div>
+      <p id="no-eggs-msg" class="text-muted mt-1">No eggs yet — win a battle to get one!</p>
+    </section>
+
+    <!-- PC Box (collapsed by default) -->
+    <section class="mt-2">
+      <details>
+        <summary style="cursor:pointer; color:var(--yellow); margin-bottom:1rem;">
+          PC Storage Box
+        </summary>
+        <!--
+          TODO: render box pokemon here (in_party=False).
+          Add a "Withdraw" button on each card.
+        -->
+        <div id="box-grid" style="
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: 1rem;
+          margin-top: 1rem;
+        ">
+          <!-- JS will populate this -->
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       TOAST CONTAINER (used by ui.js)
+  ============================================================ -->
+  <div id="toast-container"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+       type="module" lets you use ES6 import/export in JS files
+  ============================================================ -->
+  <script type="module" src="js/pokemon.js"></script>
+  <script type="module">
+    /**
+     * TODO: wire up the login button
+     *
+     * import { handleLogin } from './js/pokemon.js';
+     * document.getElementById("login-btn").addEventListener("click", handleLogin);
+     * document.getElementById("logout-btn").addEventListener("click", () => {
+     *   import { clearTrainerId } from './js/ui.js';
+     *   clearTrainerId();
+     *   location.reload();
+     * });
+     *
+     * Also on page load: if loadTrainerId() is non-null, skip login and go
+     * straight to loadParty().
+     */
+  </script>
+
+</body>
+</html>

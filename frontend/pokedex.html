@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokedex — Pokemon Battle Simulator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="index.html">POKEBATTLE</a>
+    <ul>
+      <li><a href="index.html">My Team</a></li>
+      <li><a href="pokedex.html">Pokedex</a></li>
+    </ul>
+  </nav>
+
+  <main style="max-width:1000px; margin:2rem auto; padding:0 1rem;">
+
+    <h2 style="color:var(--yellow); margin-bottom:0.5rem;">Pokedex</h2>
+    <p class="text-muted" style="margin-bottom:1.5rem;">
+      Search for any Generation 1 Pokemon and add it to your party.
+    </p>
+
+    <!-- Search bar -->
+    <div class="flex gap-1" style="margin-bottom:2rem; max-width:500px;">
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search by name… (e.g. char)"
+        style="
+          flex:1;
+          padding: 0.6rem 1rem;
+          border-radius: var(--radius);
+          border: 1px solid rgba(255,255,255,0.15);
+          background: var(--surface);
+          color: var(--text);
+          font-size: 1rem;
+        "
+      />
+      <!--
+        TODO: trigger searchAndRender() on each keystroke:
+        document.getElementById("search-input").addEventListener("input", searchAndRender);
+      -->
+    </div>
+
+    <!--
+      Results grid.
+      TODO: JS (pokemon.js → searchAndRender) populates this with cards.
+      Each card should include:
+        - Sprite image (from PokeAPI)
+        - Pokemon name (capitalised)
+        - National Dex number (#025 etc.)
+        - Type badges
+        - "Add to Party" button → API.catchPokemon(trainerId, id)
+
+      If party is full the button should say "Party Full" and be disabled.
+    -->
+    <div id="search-results" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    ">
+      <!-- JS will populate this -->
+    </div>
+
+    <!-- Empty state -->
+    <p id="search-empty" class="text-muted text-center mt-2">
+      Start typing to search the Pokedex…
+    </p>
+
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script type="module" src="js/pokemon.js"></script>
+  <script type="module">
+    /**
+     * TODO: wire search input
+     *
+     * import { searchAndRender } from './js/pokemon.js';
+     * document.getElementById("search-input").addEventListener("input", searchAndRender);
+     */
+  </script>
+
+</body>
+</html>

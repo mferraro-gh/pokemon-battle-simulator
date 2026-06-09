@@ -1,0 +1,168 @@
+/* ============================================================
+   Battle arena specific styles
+   ============================================================ */
+
+/* ------ Arena layout ------ */
+.battle-arena {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Opponent info sits top-right, player info bottom-left (like the games) */
+.opponent-panel { grid-column: 2; grid-row: 1; }
+.player-panel   { grid-column: 1; grid-row: 2; }
+
+/* ------ Pokemon display cards ------ */
+.pokemon-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pokemon-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--yellow);
+}
+
+.pokemon-level {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.hp-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ------ Sprite area ------ */
+.sprites-area {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 1rem 0;
+  min-height: 180px;
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(255,255,255,0.04) 60%,
+    rgba(255,255,255,0.04) 65%,
+    transparent 65%
+  );
+}
+
+.sprite-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.player-sprite   { width: 120px; height: 120px; }
+.opponent-sprite { width: 96px;  height: 96px; filter: drop-shadow(0 0 8px rgba(255,200,5,0.3)); }
+
+/* Shake animation on hit */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.hit { animation: shake 0.4s ease; }
+
+/* Faint animation */
+@keyframes faint {
+  to { opacity: 0; transform: translateY(30px); }
+}
+
+.fainted { animation: faint 0.6s ease forwards; }
+
+/* ------ Battle log ------ */
+.battle-log {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 1rem;
+  height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.battle-log::-webkit-scrollbar { width: 6px; }
+.battle-log::-webkit-scrollbar-track  { background: transparent; }
+.battle-log::-webkit-scrollbar-thumb  { background: var(--muted); border-radius: 3px; }
+
+.log-entry {
+  font-size: 0.88rem;
+  padding: 2px 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.log-entry.player-action   { color: var(--yellow); }
+.log-entry.opponent-action { color: #f88; }
+.log-entry.system-message  { color: var(--muted); font-style: italic; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ------ Controls ------ */
+.battle-controls {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* ------ Result overlay ------ */
+.result-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.result-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.result-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.result-win  .result-title { color: var(--yellow); }
+.result-loss .result-title { color: var(--hp-red); }
+
+.egg-reward {
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius);
+  border: 1px dashed var(--yellow);
+}
