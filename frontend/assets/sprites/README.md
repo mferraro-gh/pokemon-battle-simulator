@@ -3,8 +3,14 @@
 This folder is where **local Pokemon sprites** live. Right now the app pulls
 sprites straight from PokeAPI's remote URLs, so this folder ships mostly empty
 (just `.gitkeep` placeholders). When you're ready to bundle your own sprites,
-drop them in here following the layout below and flip one flag — see
+fetch them with the script below and flip one flag — see
 [Enabling local sprites](#enabling-local-sprites).
+
+> **Downloaded sprites are not committed to git.** They're listed in
+> `.gitignore` and live only on your machine — that keeps the repo small and
+> avoids redistributing Nintendo's artwork. Each person who clones the project
+> runs the download script once to populate this folder. The folder *structure*,
+> this README, and any curated `ui/` + `eggs/` art you add **are** tracked.
 
 ---
 
@@ -57,6 +63,7 @@ A helper script is included to fetch them for you:
 python scripts/download_sprites.py                 # Gen 1 (IDs 1-151), front + back
 python scripts/download_sprites.py --start 1 --end 386   # Gens 1-3
 python scripts/download_sprites.py --shiny         # also grab shiny variants
+python scripts/download_sprites.py --enable        # download AND switch the app to local
 ```
 
 The script skips files you already have, so it's safe to re-run.
@@ -64,6 +71,14 @@ The script skips files you already have, so it's safe to re-run.
 ---
 
 ## ✅ Enabling local sprites
+
+**Quickest way** — let the download script do both steps:
+
+```bash
+python scripts/download_sprites.py --enable
+```
+
+**Or manually:**
 
 1. Add the PNGs (run the script above, or copy your own in).
 2. Open [`frontend/js/sprites.js`](../../js/sprites.js).

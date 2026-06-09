@@ -100,27 +100,37 @@ python -m http.server 8000
 
 Then visit **http://localhost:8000**.
 
+### 4. (Optional) Use local sprites
+
+Sprites load from PokeAPI by default. To bundle them locally instead:
+
+```bash
+python scripts/download_sprites.py --enable
+```
+
+See [Sprites](#️-sprites) below for details.
+
 ---
 
 ## 🖼️ Sprites
 
 The app uses remote PokeAPI sprite URLs out of the box, so there's nothing to
 download to get started. When you want to bundle your **own local sprite
-archive**, the structure is already in place:
+archive**, one command downloads them and switches the app over:
 
 ```bash
-python scripts/download_sprites.py     # populate frontend/assets/sprites/
+python scripts/download_sprites.py --enable
 ```
 
-Then flip one flag in [`frontend/js/sprites.js`](frontend/js/sprites.js):
+Downloaded sprites are **gitignored** — they stay on your machine and aren't
+committed (keeps the repo small; avoids redistributing Nintendo's art). Anyone
+who clones the project just runs that command once.
 
-```js
-export const USE_LOCAL_SPRITES = true;
-```
-
-Every sprite in the app resolves through `SpriteResolver`, so that single switch
-flips the whole UI over to local files (with automatic fallback to remote if a
-file is missing). Full details in
+Under the hood every sprite resolves through `SpriteResolver`
+([`frontend/js/sprites.js`](frontend/js/sprites.js)), so a single
+`USE_LOCAL_SPRITES` flag flips the whole UI between remote and local (with
+automatic fallback to remote if a local file is missing). The `--enable` flag
+just sets that flag for you. Full details in
 [`frontend/assets/sprites/README.md`](frontend/assets/sprites/README.md).
 
 ---

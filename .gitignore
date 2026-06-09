@@ -38,3 +38,11 @@ desktop.ini
 
 # ---- Claude local settings (keep these out of the public repo) ----
 .claude/settings.local.json
+
+# ---- Downloaded Pokemon sprites ----
+# Fetched on demand with `python scripts/download_sprites.py` — not committed.
+# The folder structure (.gitkeep), this tree's README, and any curated
+# ui/ + eggs/ art ARE still tracked; only the downloaded pokemon/ images aren't.
+frontend/assets/sprites/pokemon/**/*.png
+frontend/assets/sprites/pokemon/**/*.jpg
+frontend/assets/sprites/pokemon/**/*.gif
