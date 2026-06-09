@@ -71,8 +71,9 @@
       <!-- Opponent sprite (smaller, at the back) -->
       <div class="sprite-wrapper">
         <!--
-          TODO: in JS set src to opponent's sprite_url:
-          document.getElementById("opponent-sprite").src = data.sprite_url;
+          TODO: in JS set the opponent sprite via the resolver:
+          SpriteResolver.applyTo(opponentSprite, SpriteResolver.front(data));
+          (resolver lives in js/sprites.js — handles local vs. remote sprites)
         -->
         <img id="opponent-sprite" class="sprite opponent-sprite"
              src="" alt="opponent" style="width:96px; height:96px;" />
@@ -82,8 +83,9 @@
       <!-- Player sprite (larger, at the front — use back sprite if available) -->
       <div class="sprite-wrapper" style="order:1;">
         <!--
-          TODO: PokeAPI also has back sprites:
-          data["sprites"]["back_default"]  — use this for the player's sprite
+          TODO: use the BACK sprite for the player's own pokemon:
+          SpriteResolver.applyTo(playerSprite, SpriteResolver.back(data));
+          (in local mode this loads assets/sprites/pokemon/back/{id}.png)
         -->
         <img id="player-sprite" class="sprite player-sprite"
              src="" alt="your pokemon" style="width:120px; height:120px;" />

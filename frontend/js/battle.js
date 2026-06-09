@@ -11,6 +11,7 @@
 
 import { API } from './api.js';
 import { showToast, updateHpBar } from './ui.js';
+import { SpriteResolver } from './sprites.js';
 
 // ------------------------------------------------------------------ //
 //  DOM refs — fill these in as you build battle.html                  //
@@ -66,6 +67,9 @@ async function init() {
  *   data  — pokemon dict from API
  *
  *   Set the sprite src, name, level, type badges, hp bar.
+ *   For the sprite use the resolver (handles local-vs-remote + fallback):
+ *     player   → SpriteResolver.applyTo(playerSprite,   SpriteResolver.back(data))
+ *     opponent → SpriteResolver.applyTo(opponentSprite, SpriteResolver.front(data))
  */
 function renderPokemon(side, data) {
   // TODO

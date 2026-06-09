@@ -61,7 +61,12 @@ pokemon-battle-simulator/
 │   ├── battle.html            # Battle arena
 │   ├── pokedex.html           # Search & catch
 │   ├── css/
-│   └── js/
+│   ├── js/
+│   │   └── sprites.js         # Sprite resolver (local-vs-remote switch)
+│   └── assets/
+│       └── sprites/           # Local sprite archive (see its README)
+├── scripts/
+│   └── download_sprites.py    # Fetch sprites from the PokeAPI archive
 └── requirements.txt
 ```
 
@@ -94,6 +99,29 @@ python -m http.server 8000
 ```
 
 Then visit **http://localhost:8000**.
+
+---
+
+## 🖼️ Sprites
+
+The app uses remote PokeAPI sprite URLs out of the box, so there's nothing to
+download to get started. When you want to bundle your **own local sprite
+archive**, the structure is already in place:
+
+```bash
+python scripts/download_sprites.py     # populate frontend/assets/sprites/
+```
+
+Then flip one flag in [`frontend/js/sprites.js`](frontend/js/sprites.js):
+
+```js
+export const USE_LOCAL_SPRITES = true;
+```
+
+Every sprite in the app resolves through `SpriteResolver`, so that single switch
+flips the whole UI over to local files (with automatic fallback to remote if a
+file is missing). Full details in
+[`frontend/assets/sprites/README.md`](frontend/assets/sprites/README.md).
 
 ---
 

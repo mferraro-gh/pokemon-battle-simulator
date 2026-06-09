@@ -60,7 +60,9 @@ export function updateHpBar(barEl, current, max) {
  * TODO:
  *   1. Create a div.card element
  *   2. Build inner HTML with:
- *        - <img class="sprite" src={pokemon.sprite_url}>
+ *        - <img class="sprite">  — set its src via SpriteResolver.front(pokemon)
+ *          (import { SpriteResolver } from './sprites.js'; don't use
+ *           pokemon.sprite_url directly — the resolver handles local-vs-remote)
  *        - Pokemon name and level
  *        - Type badges (.type-badge .type-{type} for each type)
  *        - HP bar (use the hp-bar-container / hp-bar pattern from CSS)
